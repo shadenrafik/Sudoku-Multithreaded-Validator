@@ -1,6 +1,6 @@
 package checkers;
 
-import model.ValidationResult;
+import ValidationResult;
 
 public class ColumnChecker {
     public static ValidationResult checkColumn(int[][] board, int colIndex){

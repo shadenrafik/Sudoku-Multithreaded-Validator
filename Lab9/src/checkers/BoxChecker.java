@@ -1,6 +1,6 @@
 package checkers;
 
-import model.ValidationResult;
+import ValidationResult;
 
 public class BoxChecker {
     public static ValidationResult checkBox(int[][] board,int boxIndex){

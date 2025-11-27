@@ -1,7 +1,6 @@
 package checkers;
 
-import model.ValidationResult;
-import java.util.*;
+import ValidationResult;
 
 public class RowChecker {
     public static ValidationResult checkRow(int[][] board,int rowIndex){

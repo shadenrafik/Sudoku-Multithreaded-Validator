@@ -1,7 +1,7 @@
 package tasks;
 
 import checkers.BoxChecker;
-import model.ValidationResult;
+import ValidationResult;
 
 public class BoxTask implements Runnable {
     private final int[][] board;

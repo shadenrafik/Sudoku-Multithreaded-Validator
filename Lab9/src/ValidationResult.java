@@ -1,5 +1,3 @@
-package model;
-
 public class ValidationResult {
          private final boolean valid;
          private final int index;
