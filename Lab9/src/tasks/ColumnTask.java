@@ -1,7 +1,7 @@
 package tasks;
 
 import checkers.ColumnChecker;
-import ValidationResult;
+import Validation.ValidationResult;
 
 public class ColumnTask implements Runnable {
     private final int[][] board;

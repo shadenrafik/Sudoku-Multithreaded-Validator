@@ -1,7 +1,7 @@
 package tasks;
 
 import checkers.RowChecker;
-import ValidationResult;
+import Validation.ValidationResult;
 
 public class RowTask implements Runnable {
     private final int[][] board;
