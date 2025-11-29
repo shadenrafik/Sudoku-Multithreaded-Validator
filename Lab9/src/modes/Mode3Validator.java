@@ -2,22 +2,33 @@ package modes;
 
 import Validation.ValidationResult;
 import modes.ValidationFactory.SudokuValidator;
-import tasks.AllRowsTask;
-import tasks.AllColumnsTask;
-import tasks.AllBoxesTask;
-import java.lang.System;
-
+import checkers.RowChecker;
+import checkers.ColumnChecker;
+import checkers.BoxChecker;
 
 public class Mode3Validator implements SudokuValidator {
     @Override
     public ValidationResult[] validate(int[][] board) {
-        AllRowsTask rowsTask = new AllRowsTask(board);
-        AllColumnsTask colsTask = new AllColumnsTask(board);
-        AllBoxesTask boxesTask = new AllBoxesTask(board);
+        final ValidationResult[] results = new ValidationResult[27];
+        Runnable rowsJob = () -> {
+            for (int i = 0; i < 9; i++) {
+                results[i] = RowChecker.checkRow(board, i);
+            }
+        };
+        Runnable colsJob = () -> {
+            for (int i = 0; i < 9; i++) {
+                results[9 + i] = ColumnChecker.checkColumn(board, i);
+            }
+        };
+        Runnable boxesJob = () -> {
+            for (int i = 0; i < 9; i++) {
+                results[18 + i] = BoxChecker.checkBox(board, i);
+            }
+        };
 
-        Thread rowsThread = new Thread(rowsTask);
-        Thread colsThread = new Thread(colsTask);
-        Thread boxesThread = new Thread(boxesTask);
+        Thread rowsThread = new Thread(rowsJob);
+        Thread colsThread = new Thread(colsJob);
+        Thread boxesThread = new Thread(boxesJob);
 
         rowsThread.start();
         colsThread.start();
@@ -31,14 +42,6 @@ public class Mode3Validator implements SudokuValidator {
             System.err.println("Mode 3 validation interrupted: " + e.getMessage());
             Thread.currentThread().interrupt();
         }
-
-        ValidationResult[] results = new ValidationResult[27];
-
-        System.arraycopy(rowsTask.getResults(), 0, results, 0, 9);
-
-        System.arraycopy(colsTask.getResults(), 0, results, 9, 9);
-
-        System.arraycopy(boxesTask.getResults(), 0, results, 18, 9);
 
         return results;
     }
