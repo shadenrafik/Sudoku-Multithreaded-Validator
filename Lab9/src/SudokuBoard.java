@@ -1,6 +1,3 @@
-package board;
-
-import java.util.*;
 import java.io.*;
 
 
