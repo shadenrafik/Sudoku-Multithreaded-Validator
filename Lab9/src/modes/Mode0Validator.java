@@ -8,15 +8,15 @@ public class Mode0Validator implements SudokuValidator {
     @Override
     public ValidationResult[] validate(int[][] board) {
         ValidationResult[] results = new ValidationResult[27];
-        int k = 0;
+        int x = 0;
         for (int i = 0; i < 9; i++) {
-            results[k++] = RowChecker.checkRow(board, i);
+            results[x++] = RowChecker.checkRow(board, i);
         }
         for (int i = 0; i < 9; i++) {
-            results[k++] = ColumnChecker.checkColumn(board, i);
+            results[x++] = ColumnChecker.checkColumn(board, i);
         }
         for (int i = 0; i < 9; i++) {
-            results[k++] = BoxChecker.checkBox(board, i);
+            results[x++] = BoxChecker.checkBox(board, i);
         }
         return results;
     }

@@ -10,15 +10,15 @@ import java.util.List;
 public class Mode27Validator implements SudokuValidator {
     @Override
     public ValidationResult[] validate(int[][] board) {
-        List<SudokuCheck> tasks = new ArrayList<>();
+        List<SudokuCheck> checks = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {
-            tasks.add(new SudokuCheck(board, CheckType.SINGLE_ROW, i));
-            tasks.add(new SudokuCheck(board, CheckType.SINGLE_COL, i));
-            tasks.add(new SudokuCheck(board, CheckType.SINGLE_BOX, i));
+            checks.add(new SudokuCheck(board, CheckType.ROW, i));
+            checks.add(new SudokuCheck(board, CheckType.COLUMN, i));
+            checks.add(new SudokuCheck(board, CheckType.BOX, i));
         }
-        for (SudokuCheck task : tasks) {
+        for (SudokuCheck task : checks) {
             threads.add(new Thread(task));
         }
         for (Thread thread : threads) {
@@ -29,14 +29,14 @@ public class Mode27Validator implements SudokuValidator {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            System.err.println("Mode 27 validation interrupted: " + e.getMessage());
+            System.err.println("Mode 27 interrupted: " + e.getMessage());
             Thread.currentThread().interrupt();
         }
 
         ValidationResult[] results = new ValidationResult[27];
         int resultIndex = 0;
-        for (SudokuCheck task : tasks) {
-            results[resultIndex++] = task.getResult();
+        for (SudokuCheck check : checks) {
+            results[resultIndex++] = check.getResult();
         } return results;
     }
 }

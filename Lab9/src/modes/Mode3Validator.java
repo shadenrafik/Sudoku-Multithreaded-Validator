@@ -10,36 +10,36 @@ public class Mode3Validator implements SudokuValidator {
     @Override
     public ValidationResult[] validate(int[][] board) {
         final ValidationResult[] results = new ValidationResult[27];
-        Runnable rowsJob = () -> {
+        Runnable rows = () -> {
             for (int i = 0; i < 9; i++) {
                 results[i] = RowChecker.checkRow(board, i);
             }
         };
-        Runnable colsJob = () -> {
+        Runnable columns = () -> {
             for (int i = 0; i < 9; i++) {
                 results[9 + i] = ColumnChecker.checkColumn(board, i);
             }
         };
-        Runnable boxesJob = () -> {
+        Runnable boxes = () -> {
             for (int i = 0; i < 9; i++) {
                 results[18 + i] = BoxChecker.checkBox(board, i);
             }
         };
 
-        Thread rowsThread = new Thread(rowsJob);
-        Thread colsThread = new Thread(colsJob);
-        Thread boxesThread = new Thread(boxesJob);
+        Thread rThread = new Thread(rows);
+        Thread cThread = new Thread(columns);
+        Thread bThread = new Thread(boxes);
 
-        rowsThread.start();
-        colsThread.start();
-        boxesThread.start();
+        rThread.start();
+        cThread.start();
+        bThread.start();
 
         try {
-            rowsThread.join();
-            colsThread.join();
-            boxesThread.join();
+            rThread.join();
+            cThread.join();
+            bThread.join();
         } catch (InterruptedException e) {
-            System.err.println("Mode 3 validation interrupted: " + e.getMessage());
+            System.err.println("Mode 3 interrupted: " + e.getMessage());
             Thread.currentThread().interrupt();
         }
 

@@ -6,7 +6,7 @@ import checkers.ColumnChecker;
 import checkers.BoxChecker;
 
 public class SudokuCheck implements Runnable {
-    public enum CheckType {SINGLE_ROW,SINGLE_COL,SINGLE_BOX}
+    public enum CheckType {ROW, COLUMN, BOX}
     private final int[][] board;
     private final CheckType type;
     private final int index;
@@ -20,13 +20,13 @@ public class SudokuCheck implements Runnable {
     @Override
     public void run() {
         switch (type) {
-            case SINGLE_ROW:
+            case ROW:
                 result = RowChecker.checkRow(board, index);
                 break;
-            case SINGLE_COL:
+            case COLUMN:
                 result = ColumnChecker.checkColumn(board, index);
                 break;
-            case SINGLE_BOX:
+            case BOX:
                 result = BoxChecker.checkBox(board, index);
                 break;
         }
