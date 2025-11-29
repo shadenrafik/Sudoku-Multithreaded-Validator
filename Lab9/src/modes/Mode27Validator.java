@@ -2,7 +2,6 @@ package modes;
 
 import Validation.ValidationResult;
 import modes.ValidationFactory.SudokuValidator;
-import tasks.RowTask;
 import tasks.ColumnTask;
 import tasks.BoxTask;
 import java.util.ArrayList;
